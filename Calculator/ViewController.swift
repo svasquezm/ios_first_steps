@@ -12,18 +12,15 @@ class ViewController: UIViewController {
 
     var inMiddleOfTyping = false
     @IBOutlet private weak var resultLabel: UILabel!
+    @IBOutlet weak var historyLabel: UILabel!
     
     // Properties
     private var brain = CalculatorBrain()
     private var displayValue: Double {
-        get {
-            return Double(resultLabel.text!)!
-        }
-        
-        set {
-            resultLabel.text = String(newValue)
-        }
+        get { return Double(resultLabel.text!)! }
+        set { resultLabel.text = String(newValue) }
     }
+    
     
     /**
      * Actions
@@ -47,6 +44,11 @@ class ViewController: UIViewController {
         }
         
         displayValue = brain.result
+        if let currentText = historyLabel.text {
+            historyLabel.text = String(displayValue) + "\n" + currentText
+        } else {
+            historyLabel.text = String(displayValue)
+        }
     }
 }
 
